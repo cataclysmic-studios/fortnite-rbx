@@ -1,6 +1,13 @@
 interface PlayerGui extends Instance {
   Main: ScreenGui & {
     UIPadding: UIPadding;
+    Crosshairs: Frame & {
+      UIAspectRatioConstraint: UIAspectRatioConstraint;
+      HarvestingTool: Frame;
+      SingleShot: Frame;
+      Shotgun: Frame;
+      Consumable: Frame;
+    };
     Hotbar: Frame & {
       EmptySlots: Folder & {
         Slot3: Frame & {

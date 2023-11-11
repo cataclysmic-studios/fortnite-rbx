@@ -1,8 +1,9 @@
 import { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
-import { ReplicatedStorage, ProximityPromptService } from "@rbxts/services";
+import { ProximityPromptService } from "@rbxts/services";
 import { Assets } from "shared/utilities/shared";
 import { Player } from "shared/utilities/client";
+import { getItemByName } from "shared/utilities/game";
 import type InventoryItem from "shared/structs/items/inventory-item";
 import Log from "shared/logger";
 
@@ -68,11 +69,7 @@ export class ItemPickupPrompt extends BaseComponent<{}, typeof Assets.UI.ItemPic
     const itemName = this.getItemName();
     if (!itemName) return;
 
-    const itemStructs = <Folder>ReplicatedStorage.WaitForChild("TS").WaitForChild("structs").WaitForChild("items");
-    const infoModule = <Maybe<ModuleScript>>itemStructs.FindFirstChild(itemName, true);
-    if (!infoModule || itemName === "inventory-item") return;
-
-    return (<{ default: InventoryItem }>require(infoModule)).default;
+    return getItemByName(itemName);
   }
 
   private getItemName(): Maybe<string> {

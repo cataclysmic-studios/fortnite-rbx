@@ -1,4 +1,4 @@
-const enum ItemMouseIcon {
+enum ItemMouseIcon {
   HarvestingTool,
   SingleShot,
   Shotgun,

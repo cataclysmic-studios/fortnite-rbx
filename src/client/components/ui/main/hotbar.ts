@@ -2,10 +2,18 @@ import { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
 import { Context as InputContext, RawActionEntry } from "@rbxts/gamejoy";
 import { Action } from "@rbxts/gamejoy/out/Actions";
-import { tween } from "shared/utilities/ui";
 import Object from "@rbxts/object-utils";
+
+import { tween } from "shared/utilities/ui";
+import { toSnakeCase } from "shared/utilities/shared";
+import { getItemByName } from "shared/utilities/game";
 import InventoryItem from "shared/structs/items/inventory-item";
 import DefaultPickaxe from "shared/structs/items/harvesting-tools/default-pickaxe";
+import ItemCrosshair from "shared/structs/item-mouse-icon";
+import Log from "shared/logger";
+
+import type { UIController } from "client/controllers/ui-controller";
+import type { MouseController } from "client/controllers/mouse-controller";
 
 interface Attributes {}
 
@@ -44,6 +52,11 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     RunSynchronously: true
   });
 
+  public constructor(
+    private readonly ui: UIController,
+    private readonly mouse: MouseController
+  ) { super(); }
+
   public onStart(): void {
     this.allSlotFrames.push(this.instance.HarvestingTool);
     this.slotFrameOrigins = this.allSlotFrames.map(frame => frame.Position);
@@ -59,7 +72,7 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     const { regular: harvestingToolSlotFrame } = this.getSlotFrames(1);
     harvestingToolSlotFrame.Icon.Image = pickaxe.icon;
     harvestingToolSlotFrame.BackgroundColor3 = pickaxe.rarityColor;
-    harvestingToolSlotFrame.SetAttribute("HarvestingToolName", pickaxe.name);
+    harvestingToolSlotFrame.SetAttribute("ItemName", pickaxe.name);
   }
 
   public pushItem(item: InventoryItem): void {
@@ -88,6 +101,18 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     this.selectSlot(1);
   }
 
+  private setCrosshair(icon: ItemCrosshair): void {
+    this.mouse.toggleIcon(false);
+    const crosshairs = this.ui.getCrosshairs();
+    for (const crosshair of crosshairs)
+      crosshair.Visible = false;
+    
+    if (icon === ItemCrosshair.None) return;
+    const crosshairName = ItemCrosshair[icon];
+    const crosshair = this.ui.getCrosshairs().find(crosshair => crosshair.Name === crosshairName)!;
+    crosshair.Visible = true;
+  }
+
   private getFirstEmptySlot(): Maybe<number> {
     const firstEmptySlot = this.instance.EmptySlots.GetChildren()
       .filter((slot): slot is Frame => slot.IsA("Frame") && slot.Visible)
@@ -104,6 +129,11 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     const slotEmpty = slotName !== "HarvestingTool" && emptySlotFrame.Visible;
     if (slotEmpty) return;
 
+    const item = this.getItemInfoFromSlot(slot);
+    if (!item)
+      return Log.warning(`Failed to select slot ${slot}: Could not fetch item info`);
+
+    this.setCrosshair(item.mouseIconWhenHolding);
     for (const [i, slotFrame] of Object.entries(this.allSlotFrames)) {
       const selectedSlot = slotFrame.Name === slotName;
       slotFrame.SelectionStroke.Enabled = selectedSlot;
@@ -120,6 +150,12 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
         Position: selectedSlot ? keybindOrigin.add(offset) : keybindOrigin
       });
     }
+  }
+
+  private getItemInfoFromSlot(slot: number): Maybe<InventoryItem> {
+    const { regular } = this.getSlotFrames(slot);
+    const itemName = <string>regular.GetAttribute("ItemName");
+    return getItemByName(toSnakeCase(itemName).gsub("_", "-")[0]);
   }
 
   private getSlotFrames(slot: number): { empty: Frame, regular: SelectableSlot } {

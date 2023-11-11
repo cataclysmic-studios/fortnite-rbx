@@ -70,6 +70,10 @@ export class MouseController implements OnInit, OnRender {
     };
   }
 
+  public toggleIcon(on: boolean): void {
+    UIS.MouseIconEnabled = on
+  }
+
   public getWorldPosition(distance = this.mouseRayDistance): Vector3 {
     const { X, Y } = UIS.GetMouseLocation();
     const { Origin, Direction } = World.CurrentCamera!.ViewportPointToRay(X, Y);
@@ -97,7 +101,7 @@ export class MouseController implements OnInit, OnRender {
   }
 
   public setIcon(icon: MouseIcon): void {
-    const assetID = this.getMouseIcon(icon);
+    const assetID = this.getIconAsset(icon);
     this.playerMouse.Icon = assetID;
   }
 
@@ -113,7 +117,7 @@ export class MouseController implements OnInit, OnRender {
     return World.Raycast(Origin, Direction.mul(distance), raycastParams);
   }
 
-  private getMouseIcon(icon: MouseIcon): string {
+  private getIconAsset(icon: MouseIcon): string {
     switch (icon) {
       case MouseIcon.Default:
         return "rbxasset://SystemCursors/Arrow";

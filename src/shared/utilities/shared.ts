@@ -8,6 +8,7 @@ export const Assets = ReplicatedFirst.Assets;
 export const now = () => round(tick());
 export const toStorableVector3 = ({ X, Y, Z }: Vector3) => ({ x: X, y: Y, z: Z });
 export const toUsableVector3 = ({ x, y, z }: StorableVector3) => new Vector3(x, y, z);
+export const toSnakeCase = (input: string) => input.gsub(" ", "")[0].gsub("%u", "_%1")[0].gsub("^_", "")[0].lower();
 export function toRegion3({ CFrame, Size }: Part, areaShrink = 0): Region3 {
   const { X: sx, Y: sy, Z: sz } = Size;
   const [x, y, z, r00, r01, r02, r10, r11, r12, r20, r21, r22] = CFrame.GetComponents();
