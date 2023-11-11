@@ -8,7 +8,7 @@ export function tween<T extends Instance = Instance>(
   goal: Partial<ExtractMembers<T, Tweenable>>
 ): Tween {
 
-  if ("Build" in tweenInfo)
+  if (tweenInfo instanceof TweenInfoBuilder)
     tweenInfo = tweenInfo.Build();
 
   const tween = TweenService.Create(instance, tweenInfo, goal);
