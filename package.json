@@ -35,6 +35,7 @@
     "@rbxts/signal": "^1.1.1",
     "@rbxts/strict-map": "^1.0.2",
     "@rbxts/string-utils": "^1.0.3",
+    "rbxts-transform-debug": "^2.2.0",
     "rbxts-transformer-switchcase": "^1.0.1"
   }
 }

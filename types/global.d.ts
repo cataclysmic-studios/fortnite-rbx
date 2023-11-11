@@ -1,6 +1,10 @@
 type None = undefined | null | void;
 type Maybe<T> = T | None;
 
+type ModelWithRoot = Model & {
+    PrimaryPart: Part;
+};
+
 type DeepReadonly<T> =
     T extends (infer R)[] ? DeepReadonlyArray<R> :
     T extends Callback ? T :

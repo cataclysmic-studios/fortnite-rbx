@@ -1,11 +1,11 @@
-import { Controller, OnInit } from "@flamework/core";
+import { Controller, OnInit, OnRender } from "@flamework/core";
 import { HttpService as HTTP, UserInputService as UIS, Workspace as World } from "@rbxts/services";
 import { RaycastParamsBuilder } from "@rbxts/builders";
 import { Context as InputContext } from "@rbxts/gamejoy";
 import { Axis, Union } from "@rbxts/gamejoy/out/Actions";
 import { StrictMap } from "@rbxts/strict-map";
 
-import { Player } from "shared/utilities/helpers";
+import { Player } from "shared/utilities/client";
 
 const { abs } = math;
 
@@ -15,9 +15,10 @@ export const enum MouseIcon {
 }
 
 @Controller()
-export class MouseController implements OnInit {
+export class MouseController implements OnInit, OnRender {
   public down = false;
 
+  private behavior: Enum.MouseBehavior = Enum.MouseBehavior.Default;
   private readonly mouseRayDistance = 1000;
   private readonly playerMouse = Player.GetMouse();
   private readonly clickAction = new Union(["MouseButton1", "Touch"]);
@@ -41,6 +42,10 @@ export class MouseController implements OnInit {
 
     UIS.TouchStarted.Connect(() => this.down = true);
     UIS.TouchEnded.Connect(() => this.down = false);
+  }
+
+  public onRender(): void {
+    UIS.MouseBehavior = this.behavior;
   }
 
   // returns a function that removes the listener
@@ -88,7 +93,7 @@ export class MouseController implements OnInit {
   }
 
   public setBehavior(behavior: Enum.MouseBehavior) {
-    UIS.MouseBehavior = behavior;
+    this.behavior = behavior;
   }
 
   public setIcon(icon: MouseIcon): void {
