@@ -62,6 +62,13 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     harvestingToolSlotFrame.SetAttribute("HarvestingToolName", pickaxe.name);
   }
 
+  public pushItem(item: InventoryItem): void {
+    const slot = this.getFirstEmptySlot();
+    if (!slot) return;
+
+    this.addItem(slot, item);
+  }
+
   public addItem(slot: number, item: InventoryItem): void {
     if (slot === 1) return; // dont add shit to pickaxe slot
     const slotFrames = this.getSlotFrames(slot);
@@ -78,6 +85,17 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     slotFrames.regular.SetAttribute("ItemName", undefined);
     slotFrames.empty.Visible = true;
     slotFrames.regular.Visible = false;
+    this.selectSlot(1);
+  }
+
+  private getFirstEmptySlot(): Maybe<number> {
+    const firstEmptySlot = this.instance.EmptySlots.GetChildren()
+      .filter((slot): slot is Frame => slot.IsA("Frame") && slot.Visible)
+      .sort((a, b) => a.LayoutOrder < b.LayoutOrder)[0];
+
+    if (!firstEmptySlot) return;
+    const slot = tonumber(firstEmptySlot.Name.split("Slot")[1]);
+    return slot ? slot + 1 : undefined;
   }
 
   private selectSlot(slot: number): void {
@@ -108,7 +126,7 @@ export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements On
     const slotName = this.getSlotName(slot);
     const isHarvestingTool = slotName === "HarvestingTool";
     const empty = isHarvestingTool ? this.instance.HarvestingTool : <Frame>this.instance.EmptySlots.FindFirstChild(slotName);
-    const regular = isHarvestingTool ? this.instance.HarvestingTool : <SelectableSlot>this.instance.EmptySlots.WaitForChild(slotName);
+    const regular = isHarvestingTool ? this.instance.HarvestingTool : <SelectableSlot>this.instance.Slots.WaitForChild(slotName);
     return { empty, regular };
   }
 
