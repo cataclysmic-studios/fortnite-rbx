@@ -17,6 +17,7 @@ export class CharacterController implements OnInit {
   public onInit(): void {
     Character.Destroying.Connect(() => this.currentModel = undefined);
     Player.CharacterAdded.Connect(char => this.currentModel = <ModelWithRoot>char);
+    this.setDeployed(false);
   }
 
   public setDeployed(on: boolean): void {
@@ -25,6 +26,6 @@ export class CharacterController implements OnInit {
   }
 
   public getRoot(): Maybe<BasePart> {
-    return this.currentModel?.PrimaryPart
+    return this.currentModel?.PrimaryPart;
   }
 }

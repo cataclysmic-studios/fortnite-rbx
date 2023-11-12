@@ -12,7 +12,7 @@ interface Attributes {}
 })
 export class ModeButton extends BaseComponent<Attributes, ImageButton & { Text: ImageLabel }> implements OnStart {
   public constructor(
-    private readonly ui: UIController,
+    private readonly ui: UIController
   ) { super(); }
   
   public onStart(): void {
@@ -37,7 +37,5 @@ export class ModeButton extends BaseComponent<Attributes, ImageButton & { Text: 
         }
       }
     });
-
-    this.ui.setScreen("Menu");
   }
 }

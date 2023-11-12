@@ -26,11 +26,13 @@ export class CameraController implements OnRender {
   public setMode(mode: CameraMode, transitionTweenInfo?: TweenInfoBuilder): void {
     switch(mode) {
       case CameraMode.Character: {
+        this.camera.CameraType = Enum.CameraType.Scriptable;
         this.subject = Character.PrimaryPart;
         return ThirdPersonCamera.Start();
       }
       case CameraMode.Lobby: {
-        this.subject = World.Lobby.Camera;
+        this.camera.CameraType = Enum.CameraType.Scriptable;
+        this.subject = <Part>World.Lobby.WaitForChild("Camera");
         break;
       }
       default: {
