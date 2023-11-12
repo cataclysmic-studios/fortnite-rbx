@@ -1,5 +1,6 @@
-const enum CameraMode {
-  Character
+enum CameraMode {
+  Character,
+  Lobby
 }
 
 export default CameraMode;

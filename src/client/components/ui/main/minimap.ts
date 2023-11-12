@@ -1,4 +1,4 @@
-import { OnRender } from "@flamework/core";
+import type { OnRender } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
 import { Player } from "shared/utilities/client";
 

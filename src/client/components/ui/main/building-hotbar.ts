@@ -1,4 +1,4 @@
-import { OnStart } from "@flamework/core";
+import type { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
 import { Context as InputContext } from "@rbxts/gamejoy";
 import Object from "@rbxts/object-utils";
@@ -6,7 +6,7 @@ import Object from "@rbxts/object-utils";
 import { tween } from "shared/utilities/ui";
 import { Build } from "shared/structs/builds";
 import { Player } from "shared/utilities/client";
-import SelectableSlot from "shared/structs/selectable-slot";
+import type SelectableSlot from "shared/structs/selectable-slot";
 
 import type { UIController } from "client/controllers/ui-controller";
 import type { MouseController } from "client/controllers/mouse-controller";
@@ -45,11 +45,11 @@ export class BuildingHotbar extends BaseComponent<Attributes, PlayerGui["Main"][
 
   private toggleCrosshair(on: boolean): void {
     this.mouse.toggleIcon(!on);
-    const crosshairs = this.ui.getCrosshairs();
+    const crosshairs = this.ui.main.getCrosshairs();
     for (const crosshair of crosshairs)
       crosshair.Visible = !on;
     
-    const crosshair = this.ui.getCrosshairs().find(crosshair => crosshair.Name === "BuildMode")!;
+    const crosshair = this.ui.main.getCrosshairs().find(crosshair => crosshair.Name === "BuildMode")!;
     crosshair.Visible = on;
   }
 

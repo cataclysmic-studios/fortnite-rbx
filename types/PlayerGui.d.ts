@@ -267,5 +267,7 @@ interface PlayerGui extends Instance {
         Me: ImageLabel;
       };
     };
-  };  
+  };
+  Lobby: ScreenGui;
+  Menu: ScreenGui;
 }

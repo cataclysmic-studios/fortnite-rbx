@@ -1,17 +1,17 @@
-import { OnStart } from "@flamework/core";
+import type { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
-import { Context as InputContext, RawActionEntry } from "@rbxts/gamejoy";
-import { Action } from "@rbxts/gamejoy/out/Actions";
+import { Context as InputContext, type RawActionEntry } from "@rbxts/gamejoy";
+import type { Action } from "@rbxts/gamejoy/out/Actions";
 import Object from "@rbxts/object-utils";
 
 import { tween } from "shared/utilities/ui";
 import { toSnakeCase } from "shared/utilities/shared";
 import { getItemByName } from "shared/utilities/game";
 import { Player } from "shared/utilities/client";
-import InventoryItem from "shared/structs/items/inventory-item";
+import type SelectableSlot from "shared/structs/selectable-slot";
+import type InventoryItem from "shared/structs/items/inventory-item";
 import DefaultPickaxe from "shared/structs/items/harvesting-tools/default-pickaxe";
 import ItemCrosshair from "shared/structs/item-mouse-icon";
-import SelectableSlot from "shared/structs/selectable-slot";
 import Log from "shared/logger";
 
 import type { UIController } from "client/controllers/ui-controller";
@@ -83,13 +83,13 @@ export class Hotbar extends BaseComponent<Attributes, PlayerGui["Main"]["Hotbar"
 
   private setCrosshair(icon: ItemCrosshair): void {
     this.mouse.toggleIcon(false);
-    const crosshairs = this.ui.getCrosshairs();
+    const crosshairs = this.ui.main.getCrosshairs();
     for (const crosshair of crosshairs)
       crosshair.Visible = false;
     
     if (icon === ItemCrosshair.None) return;
     const crosshairName = ItemCrosshair[icon];
-    const crosshair = this.ui.getCrosshairs().find(crosshair => crosshair.Name === crosshairName)!;
+    const crosshair = this.ui.main.getCrosshairs().find(crosshair => crosshair.Name === crosshairName)!;
     crosshair.Visible = true;
   }
 

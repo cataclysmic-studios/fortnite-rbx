@@ -19,7 +19,7 @@ export class ItemPickupPrompt extends BaseComponent<{}, typeof Assets.UI.ItemPic
     private readonly ui: UIController
   ) {
     super();
-    this.hotbar = this.ui.getHotbar();
+    this.hotbar = this.ui.main.getHotbar();
   }
 
   public onStart(): void {
