@@ -63,7 +63,7 @@ interface PlayerGui extends Instance {
         };
       };
       UIAspectRatioConstraint: UIAspectRatioConstraint;
-      Unlisted: Folder & {
+      IgnoreConstraints: Folder & {
         ToolIcon: ImageLabel & {
           UIAspectRatioConstraint: UIAspectRatioConstraint;
         };

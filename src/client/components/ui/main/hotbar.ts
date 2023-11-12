@@ -46,7 +46,6 @@ export class Hotbar extends BaseComponent<Attributes, PlayerGui["Main"]["Hotbar"
       this.input.Bind(<Action<RawActionEntry>><unknown>tostring(i), () => this.selectSlot(i));
 
     this.setHarvestingTool(DefaultPickaxe);
-    this.selectSlot(1);
   }
 
   public setHarvestingTool(pickaxe: InventoryItem): void {

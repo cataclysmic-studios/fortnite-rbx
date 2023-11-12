@@ -21,9 +21,9 @@ export class CameraController implements OnStart, OnRender {
   ) {}
 
   public onStart(): void {
-    this.camera.CameraType = Enum.CameraType.Scriptable;
-    this.mouse.setBehavior(Enum.MouseBehavior.LockCenter);
-    this.setMode(CameraMode.Character);
+    // this.camera.CameraType = Enum.CameraType.Scriptable;
+    // this.mouse.setBehavior(Enum.MouseBehavior.LockCenter);
+    // this.setMode(CameraMode.Character);
   }
 
   public onRender(): void {
