@@ -1,11 +1,15 @@
 import { OnRender } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
+import { Player } from "shared/utilities/client";
 
 import type { CharacterController } from "client/controllers/character-controller";
 
 interface Attributes {}
 
-@Component({ tag: "MainUI_Minimap" })
+@Component({
+  tag: "MainUI_Minimap",
+  ancestorWhitelist: [ Player.WaitForChild("PlayerGui") ]
+})
 export class Minimap extends BaseComponent<Attributes, PlayerGui["Main"]["Minimap"]> implements OnRender {
   public constructor(
     private readonly character: CharacterController

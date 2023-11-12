@@ -7,9 +7,11 @@ import Object from "@rbxts/object-utils";
 import { tween } from "shared/utilities/ui";
 import { toSnakeCase } from "shared/utilities/shared";
 import { getItemByName } from "shared/utilities/game";
+import { Player } from "shared/utilities/client";
 import InventoryItem from "shared/structs/items/inventory-item";
 import DefaultPickaxe from "shared/structs/items/harvesting-tools/default-pickaxe";
 import ItemCrosshair from "shared/structs/item-mouse-icon";
+import SelectableSlot from "shared/structs/selectable-slot";
 import Log from "shared/logger";
 
 import type { UIController } from "client/controllers/ui-controller";
@@ -17,32 +19,11 @@ import type { MouseController } from "client/controllers/mouse-controller";
 
 interface Attributes {}
 
-interface SelectableSlot extends Frame {
-  SelectionStroke: UIStroke;
-  Icon: ImageLabel;
-  Keybind: TextLabel;
-}
-
-interface HotbarFrame extends Frame {
-  Slots: Folder & {
-    Slot1: SelectableSlot;
-    Slot2: SelectableSlot;
-    Slot3: SelectableSlot;
-    Slot4: SelectableSlot;
-    Slot5: SelectableSlot;
-  };
-  EmptySlots: Folder & {
-    Slot1: Frame;
-    Slot2: Frame;
-    Slot3: Frame;
-    Slot4: Frame;
-    Slot5: Frame;
-  }
-  HarvestingTool: SelectableSlot;
-}
-
-@Component({ tag: "MainUI_Hotbar" })
-export class Hotbar extends BaseComponent<Attributes, HotbarFrame> implements OnStart {
+@Component({
+  tag: "MainUI_Hotbar",
+  ancestorWhitelist: [ Player.WaitForChild("PlayerGui") ]
+})
+export class Hotbar extends BaseComponent<Attributes, PlayerGui["Main"]["Hotbar"]> implements OnStart {
   private slotFrameOrigins: UDim2[] = [];
   private slotFrameKeybindOrigins: UDim2[] = [];
   private readonly allSlotFrames = <SelectableSlot[]>this.instance.Slots.GetChildren();

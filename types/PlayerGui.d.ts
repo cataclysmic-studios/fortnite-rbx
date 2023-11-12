@@ -1,55 +1,128 @@
 interface PlayerGui extends Instance {
   Main: ScreenGui & {
     UIPadding: UIPadding;
-    Minimap: Frame & {
-      GameInfo: Frame & {
-        PlayerCount: Frame & {
-          UIListLayout: UIListLayout;
-          IconBackground: ImageLabel & {
-            UIAspectRatioConstraint: UIAspectRatioConstraint;
-            Icon: ImageLabel;
-          };
-          Value: TextLabel & {
-            UIStroke: UIStroke;
-          };
-        };
-        StormInfo: Frame & {
-          UIListLayout: UIListLayout;
-          IconBackground: ImageLabel & {
-            UIAspectRatioConstraint: UIAspectRatioConstraint;
-            Icon: ImageLabel;
-          };
-          Timer: TextLabel & {
-            UIStroke: UIStroke;
-          };
-        };
-        UIListLayout: UIListLayout;
+    BuildingHotbar: Frame & {
+      Trap: Frame & {
+        SelectionStroke: UIStroke;
         UIAspectRatioConstraint: UIAspectRatioConstraint;
-        Eliminations: Frame & {
-          UIListLayout: UIListLayout;
-          IconBackground: ImageLabel & {
-            UIAspectRatioConstraint: UIAspectRatioConstraint;
-            Icon: ImageLabel;
-          };
-          Value: TextLabel & {
-            UIStroke: UIStroke;
-          };
+        Keybind: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIPadding: UIPadding;
+        };
+      };
+      Wall: Frame & {
+        SelectionStroke: UIStroke & {
+          UIGradient: UIGradient;
+        };
+        Glow: ImageLabel & {
+          Icon: ImageLabel;
+        };
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Keybind: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIPadding: UIPadding;
+        };
+      };
+      Floor: Frame & {
+        SelectionStroke: UIStroke & {
+          UIGradient: UIGradient;
+        };
+        Glow: ImageLabel & {
+          Icon: ImageLabel;
+        };
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Keybind: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIPadding: UIPadding;
+        };
+      };
+      Pyramid: Frame & {
+        SelectionStroke: UIStroke & {
+          UIGradient: UIGradient;
+        };
+        Glow: ImageLabel & {
+          Icon: ImageLabel;
+        };
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Keybind: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIPadding: UIPadding;
+        };
+      };
+      Stair: Frame & {
+        SelectionStroke: UIStroke & {
+          UIGradient: UIGradient;
+        };
+        Glow: ImageLabel & {
+          Icon: ImageLabel;
+        };
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Keybind: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIPadding: UIPadding;
         };
       };
       UIAspectRatioConstraint: UIAspectRatioConstraint;
-      Content: Frame & {
-        Safezone: ImageLabel & {
-          UICorner: UICorner;
+      Unlisted: Folder & {
+        ToolIcon: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
         };
-        Me: ImageLabel;
       };
-    };    
+    };
     Crosshairs: Frame & {
+      Shotgun: Frame & {
+        TR: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+        TL: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+        Dot: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+        BR: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+        BL: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+      };
+      Consumable: Frame & {
+        Dot: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+      };
+      SingleShot: Frame & {
+        Dot: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+        R: Frame & {
+          UIStroke: UIStroke;
+        };
+        T: Frame & {
+          UIStroke: UIStroke;
+        };
+        L: Frame & {
+          UIStroke: UIStroke;
+        };
+        B: Frame & {
+          UIStroke: UIStroke;
+        };
+      };
       UIAspectRatioConstraint: UIAspectRatioConstraint;
-      HarvestingTool: Frame;
-      SingleShot: Frame;
-      Shotgun: Frame;
-      Consumable: Frame;
+      HarvestingTool: Frame & {
+        Right: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIStroke: UIStroke;
+        };
+        Left: TextLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+          UIStroke: UIStroke;
+        };
+        Dot: ImageLabel & {
+          UIAspectRatioConstraint: UIAspectRatioConstraint;
+        };
+      };
     };
     Hotbar: Frame & {
       EmptySlots: Folder & {
@@ -150,6 +223,49 @@ interface PlayerGui extends Instance {
         };
       };
       UIAspectRatioConstraint: UIAspectRatioConstraint;
+    };
+    Minimap: Frame & {
+      GameInfo: Frame & {
+        PlayerCount: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Value: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+        StormInfo: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Timer: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+        UIListLayout: UIListLayout;
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Eliminations: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Value: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+      };
+      UIAspectRatioConstraint: UIAspectRatioConstraint;
+      Content: Frame & {
+        Safezone: ImageLabel & {
+          UICorner: UICorner;
+        };
+        Me: ImageLabel;
+      };
     };
   };  
 }
