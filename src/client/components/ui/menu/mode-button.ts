@@ -32,7 +32,10 @@ export class ModeButton extends BaseComponent<Attributes, ImageButton & { Text: 
     this.instance.MouseButton1Click.Connect(() => {
       switch(this.instance.Name) {
         case "BattleRoyale": {
-          this.ui.setScreen("Lobby");
+          // this.ui.setScreen("Lobby");
+          const hotbar = this.ui.main.getHotbar();
+          hotbar.selectSlot(1);
+          this.ui.setScreen("Main");
           break;
         }
       }

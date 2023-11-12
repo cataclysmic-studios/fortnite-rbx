@@ -3,6 +3,7 @@ import { Controller } from "@flamework/core";
 import { Player } from "shared/utilities/client";
 
 import type { Hotbar } from "client/components/ui/main/hotbar";
+import type { BuildingHotbar } from "client/components/ui/main/building-hotbar";
 import type { Minimap } from "client/components/ui/main/minimap";
 
 @Controller()
@@ -13,6 +14,10 @@ export class MainUIController {
   public constructor(
     private readonly components: Components
   ) {}
+
+  public getBuildingHotbar(): BuildingHotbar {
+    return this.components.getComponent<BuildingHotbar>(this.screen.BuildingHotbar)!;
+  }
 
   public getHotbar(): Hotbar {
     return this.components.getComponent<Hotbar>(this.screen.Hotbar)!;
