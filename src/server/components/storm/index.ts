@@ -8,7 +8,7 @@ import Log from "shared/logger";
 
 interface Attributes {}
 
-const STORM_HEIGHT = 2500;
+const STORM_HEIGHT = 2750;
 
 @Component({ tag: "Storm" })
 export class Storm extends BaseComponent<Attributes, BasePart & { Mesh: SpecialMesh }> implements OnStart {
@@ -27,12 +27,12 @@ export class Storm extends BaseComponent<Attributes, BasePart & { Mesh: SpecialM
 
       Log.debug("Storm has began shrinking");
       const nextPhase = STORM_PHASES[i];
-      const tweenInfo = new TweenInfo(toSeconds(phase.shrinkTime) / 5);
+      const tweenInfo = new TweenInfo((toSeconds(phase.shrinkTime) / 5) * (1 / (phase.speedMultiplier ?? 1)));
       const nextPhaseScale = new Vector3(nextPhase.radius, STORM_HEIGHT, nextPhase.radius);
       const offsetX = this.instance.Mesh.Scale.X / 2;
-      const randomX = math.random(this.instance.Position.X - offsetX, this.instance.Position.X + offsetX);
+      const randomX = math.random(this.instance.Position.X - offsetX, this.instance.Position.X + offsetX) / 2;
       const offsetZ = this.instance.Mesh.Scale.Z / 2;
-      const randomZ = math.random(this.instance.Position.Z - offsetZ, this.instance.Position.Z + offsetZ);
+      const randomZ = math.random(this.instance.Position.Z - offsetZ, this.instance.Position.Z + offsetZ) / 2;
       const goalPosition = new Vector3(randomX, this.instance.Position.Y, randomZ);
       // tween(this.instance, tweenInfo, { Position: goalPosition });
       tween(this.instance.Mesh, tweenInfo, { Scale: nextPhaseScale }).Completed.Wait();

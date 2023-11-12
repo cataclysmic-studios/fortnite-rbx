@@ -1,6 +1,49 @@
 interface PlayerGui extends Instance {
   Main: ScreenGui & {
     UIPadding: UIPadding;
+    Minimap: Frame & {
+      GameInfo: Frame & {
+        PlayerCount: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Value: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+        StormInfo: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Timer: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+        UIListLayout: UIListLayout;
+        UIAspectRatioConstraint: UIAspectRatioConstraint;
+        Eliminations: Frame & {
+          UIListLayout: UIListLayout;
+          IconBackground: ImageLabel & {
+            UIAspectRatioConstraint: UIAspectRatioConstraint;
+            Icon: ImageLabel;
+          };
+          Value: TextLabel & {
+            UIStroke: UIStroke;
+          };
+        };
+      };
+      UIAspectRatioConstraint: UIAspectRatioConstraint;
+      Content: Frame & {
+        Safezone: ImageLabel & {
+          UICorner: UICorner;
+        };
+        Me: ImageLabel;
+      };
+    };    
     Crosshairs: Frame & {
       UIAspectRatioConstraint: UIAspectRatioConstraint;
       HarvestingTool: Frame;
