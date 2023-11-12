@@ -30,7 +30,6 @@ export class CameraController implements OnStart, OnRender {
     if (this.mode === CameraMode.Character) return;
     if (!this.subject) 
       return Log.warning("No camera subject!");
-
   }
 
   public setMode(mode: CameraMode, transitionTweenInfo?: TweenInfoBuilder): void {
