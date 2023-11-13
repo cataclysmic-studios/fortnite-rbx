@@ -52,13 +52,13 @@ export class Storm extends BaseComponent<{}, Workspace["GameObjects"]["Storm"]> 
       Log.debug(`(Storm) Time until fully shrunk: ${phase.shrinkTime}`);
 
       this.instance.Mesh.Scale = new Vector3(phase.radius, STORM_HEIGHT, phase.radius);
-      task.wait(toSeconds(phase.timeUntilShrinking) / 5);
+      task.wait(toSeconds(phase.timeUntilShrinking));
 
       Log.debug("(Storm) Began shrinking");
       this.gameService.setStatus(GameStatus.Storm);
 
       const nextPhase = STORM_PHASES[i];
-      const tweenInfo = new TweenInfo((toSeconds(phase.shrinkTime) / 5) * (1 / (phase.speedMultiplier ?? 1)));
+      const tweenInfo = new TweenInfo((toSeconds(phase.shrinkTime)) * (1 / (phase.speedMultiplier ?? 1)));
       const nextPhaseScale = new Vector3(nextPhase.radius, STORM_HEIGHT, nextPhase.radius);
       const offsetX = this.instance.Mesh.Scale.X / 2;
       const randomX = math.random(this.instance.Position.X - offsetX, this.instance.Position.X + offsetX) / 2;
