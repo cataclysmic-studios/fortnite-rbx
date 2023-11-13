@@ -1,5 +1,6 @@
 import { Controller, OnInit } from "@flamework/core";
 import { Player } from "shared/utilities/client";
+import Log from "shared/logger";
 
 import type { MainUIController } from "./main";
 
@@ -30,7 +31,7 @@ export class UIController implements OnInit {
   }
 
   public setScreen(name: ExtractKeys<PlayerGui, ScreenGui>): void {
-    print("setting screen to", name)
+    Log.debug(`Setting screen to ${name}`);
     const screens = <ScreenGui[]>this.screens.GetChildren()
     for (const screen of screens)
       screen.Enabled = screen.Name === name;

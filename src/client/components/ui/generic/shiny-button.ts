@@ -12,6 +12,8 @@ export class ShinyButton extends BaseComponent<{}, GuiButton> implements OnStart
     shine.Position = startPosition;
     shine.Size = UDim2.fromScale(0.75, 1.5);
     shine.Image = "rbxassetid://14998238141";
+    shine.ImageColor3 = Color3.fromRGB(250, 248, 199);
+    shine.BackgroundTransparency = 1;
     shine.Parent = this.instance;
 
     task.spawn(() => {
