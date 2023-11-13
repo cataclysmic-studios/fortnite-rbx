@@ -4,6 +4,7 @@ import CameraMode from "./camera-controller/mode";
 
 import type { MouseController } from "./mouse-controller";
 import type { CameraController } from "./camera-controller";
+import type { UIController } from "./ui-controller";
 
 @Controller()
 export class CharacterController implements OnInit {
@@ -11,7 +12,8 @@ export class CharacterController implements OnInit {
 
   public constructor(
     private readonly mouse: MouseController,
-    private readonly camera: CameraController
+    private readonly camera: CameraController,
+    private readonly ui: UIController
   ) {}
 
   public onInit(): void {
@@ -23,6 +25,17 @@ export class CharacterController implements OnInit {
   public setDeployed(on: boolean): void {
     this.mouse.setBehavior(on ? Enum.MouseBehavior.LockCenter : Enum.MouseBehavior.Default);
     this.camera.setMode(on ? CameraMode.Character : CameraMode.Lobby);
+    
+    const hotbar = this.ui.main.getHotbar();
+    const buildingHotbar = this.ui.main.getBuildingHotbar();
+    if (on) {
+      hotbar.selectSlot(1);
+      this.ui.setScreen("Main");
+    } else {
+      hotbar.deselectAll();
+      buildingHotbar.deselectAll();
+      this.ui.setScreen("Lobby");
+    }
   }
 
   public getRoot(): Maybe<BasePart> {
