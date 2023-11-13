@@ -236,13 +236,13 @@ interface PlayerGui extends Instance {
             UIStroke: UIStroke;
           };
         };
-        StormInfo: Frame & {
+        Timer: Frame & {
           UIListLayout: UIListLayout;
           IconBackground: ImageLabel & {
             UIAspectRatioConstraint: UIAspectRatioConstraint;
             Icon: ImageLabel;
           };
-          Timer: TextLabel & {
+          Value: TextLabel & {
             UIStroke: UIStroke;
           };
         };

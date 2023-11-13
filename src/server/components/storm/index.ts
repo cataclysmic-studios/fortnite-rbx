@@ -1,31 +1,62 @@
 import { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
+import Object from "@rbxts/object-utils";
+
+import { Functions } from "server/network";
 import { toSeconds } from "shared/utilities/shared";
 import { tween } from "shared/utilities/ui";
 import STORM_PHASES from "./phases";
-import Object from "@rbxts/object-utils";
+import GameStatus from "shared/structs/game-status";
 import Log from "shared/logger";
 
-interface Attributes {}
+import type { GameService } from "server/services/game-service";
+import StormPhase from "shared/structs/storm-phase";
+
+const { getCurrentStormPhase } = Functions;
 
 const STORM_HEIGHT = 2750;
 
 @Component({ tag: "Storm" })
-export class Storm extends BaseComponent<Attributes, BasePart & { Mesh: SpecialMesh }> implements OnStart {
+export class Storm extends BaseComponent<{}, Workspace["GameObjects"]["Storm"]> implements OnStart {
+  private currentPhase = STORM_PHASES[0];
+
+  public constructor(
+    private readonly gameService: GameService
+  ) { super(); }
+
   public onStart(): void {
-    task.spawn(() => this.startCycle());
+    getCurrentStormPhase.setCallback(() => this.currentPhase);
+
+    let conn: RBXScriptConnection;
+    conn = this.gameService.statusUpdated.Connect(status => {
+      if (status !== GameStatus.StormTransition) return;
+      conn.Disconnect();
+      task.spawn(() => this.startCycle());
+    });
+  }
+
+  public isInSafeZone(part: BasePart): boolean {
+    const offset = part.Position.sub(this.instance.Position);
+    const halfHeight = this.instance.Mesh.Scale.Y / 2;
+    const radius = this.instance.Mesh.Scale.X;
+    const distanceSquared = offset.X * offset.X + offset.Z * offset.Z;
+    return offset.Y > -halfHeight && offset.Y < halfHeight && distanceSquared < radius * radius;
   }
 
   private startCycle(): void {
     for (const [i, phase] of Object.entries(STORM_PHASES)) {
-      Log.debug(`Began storm phase ${i}`);
-      Log.debug(`Time until storm shrinks: ${phase.timeUntilShrinking}`);
-      Log.debug(`Time until storm has fully shrunk: ${phase.shrinkTime}`);
+      this.currentPhase = phase;
+      this.gameService.setStatus(GameStatus.StormTransition);
+      Log.debug(`(Storm) Began phase ${i}`);
+      Log.debug(`(Storm) Time until shrink: ${phase.timeUntilShrinking}`);
+      Log.debug(`(Storm) Time until fully shrunk: ${phase.shrinkTime}`);
 
-      this.instance.Mesh.Scale = new Vector3(phase.radius, STORM_HEIGHT, phase.radius)
+      this.instance.Mesh.Scale = new Vector3(phase.radius, STORM_HEIGHT, phase.radius);
       task.wait(toSeconds(phase.timeUntilShrinking) / 5);
 
-      Log.debug("Storm has began shrinking");
+      Log.debug("(Storm) Began shrinking");
+      this.gameService.setStatus(GameStatus.Storm);
+
       const nextPhase = STORM_PHASES[i];
       const tweenInfo = new TweenInfo((toSeconds(phase.shrinkTime) / 5) * (1 / (phase.speedMultiplier ?? 1)));
       const nextPhaseScale = new Vector3(nextPhase.radius, STORM_HEIGHT, nextPhase.radius);
@@ -37,14 +68,6 @@ export class Storm extends BaseComponent<Attributes, BasePart & { Mesh: SpecialM
       // tween(this.instance, tweenInfo, { Position: goalPosition });
       tween(this.instance.Mesh, tweenInfo, { Scale: nextPhaseScale }).Completed.Wait();
     }
-    Log.debug(`Storm phases completed`);
-  }
-
-  public isInSafeZone(part: BasePart): boolean {
-    const offset = part.Position.sub(this.instance.Position);
-    const halfHeight = this.instance.Mesh.Scale.Y / 2;
-    const radius = this.instance.Mesh.Scale.X;
-    const distanceSquared = offset.X * offset.X + offset.Z * offset.Z;
-    return offset.Y > -halfHeight && offset.Y < halfHeight && distanceSquared < radius * radius;
+    Log.debug("(Storm) Phases completed");
   }
 }

@@ -1,10 +1,4 @@
-interface StormPhase {
-  readonly radius: number;
-  readonly timeUntilShrinking: string;
-  readonly shrinkTime: string;
-  readonly speedMultiplier?: number;
-  readonly travelDistance?: number;
-}
+import type StormPhase from "shared/structs/storm-phase";
 
 const STORM_PHASES: StormPhase[] = [
   {
