@@ -16,7 +16,7 @@ export class ShinyButton extends BaseComponent<{}, GuiButton> implements OnStart
 
     task.spawn(() => {
       while (task.wait(math.random(5, 20)))
-        tween(shine, new TweenInfo(0.25), {
+        tween(shine, new TweenInfo(0.5), {
           Position: UDim2.fromScale(bounds, 0.5)
         }).Completed.Once(() => shine.Position = startPosition);
     });

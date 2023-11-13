@@ -34,7 +34,6 @@ export class CharacterController implements OnInit {
     } else {
       hotbar.deselectAll();
       buildingHotbar.deselectAll();
-      this.ui.setScreen("Lobby");
     }
   }
 

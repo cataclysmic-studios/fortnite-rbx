@@ -15,6 +15,10 @@ export class UIController implements OnInit {
     this.setScreen("Menu");
   }
 
+  public removeScreen(name: ExtractKeys<PlayerGui, ScreenGui>): void {
+    this.getScreen(name).Destroy();
+  }
+
   public clearScreens(): void {
     const screens = <ScreenGui[]>this.screens.GetChildren()
     for (const screen of screens)
@@ -26,6 +30,7 @@ export class UIController implements OnInit {
   }
 
   public setScreen(name: ExtractKeys<PlayerGui, ScreenGui>): void {
+    print("setting screen to", name)
     const screens = <ScreenGui[]>this.screens.GetChildren()
     for (const screen of screens)
       screen.Enabled = screen.Name === name;

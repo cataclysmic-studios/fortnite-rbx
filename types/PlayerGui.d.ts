@@ -268,6 +268,10 @@ interface PlayerGui extends Instance {
       };
     };
   };
-  Lobby: ScreenGui;
+  Lobby: ScreenGui & {
+    Padded: Frame & {
+      Pages: Folder;
+    };
+  };
   Menu: ScreenGui;
 }

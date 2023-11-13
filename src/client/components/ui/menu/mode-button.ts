@@ -21,21 +21,23 @@ export class ModeButton extends BaseComponent<Attributes, ImageButton & { Text: 
     const invertedTextImage = <string>this.instance.Text.GetAttribute("InvertedVersion");
     const hoverColor = Color3.fromHex("#FCE345");
 
-    this.instance.MouseEnter.Connect(() => {
+    this.maid.GiveTask(this.instance.MouseEnter.Connect(() => {
       this.instance.ImageColor3 = hoverColor;
       this.instance.Text.Image = invertedTextImage;
-    });
-    this.instance.MouseLeave.Connect(() => {
+    }));
+    this.maid.GiveTask(this.instance.MouseLeave.Connect(() => {
       this.instance.ImageColor3 = defaultColor;
       this.instance.Text.Image = defaultTextImage;
-    });
-    this.instance.MouseButton1Click.Connect(() => {
+    }));
+    this.maid.GiveTask(this.instance.MouseButton1Click.Connect(() => {
       switch(this.instance.Name) {
         case "BattleRoyale": {
+          this.destroy();
           this.ui.setScreen("Lobby");
+          this.ui.removeScreen("Menu");
           break;
         }
       }
-    });
+    }));
   }
 }
