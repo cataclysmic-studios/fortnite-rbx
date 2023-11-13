@@ -2,9 +2,9 @@ import type { OnStart } from "@flamework/core";
 import { Component } from "@flamework/components";
 import Object from "@rbxts/object-utils";
 
-import { Build } from "shared/structs/builds";
+import { Build } from "shared/structs/build";
 import { Player } from "shared/utilities/client";
-import type SelectableSlot from "shared/structs/selectable-slot";
+import type SelectableSlot from "shared/structs/instances/selectable-slot";
 
 import type { UIController } from "client/controllers/ui-controller";
 import type { MouseController } from "client/controllers/mouse-controller";

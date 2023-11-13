@@ -1,6 +1,7 @@
 import { Controller, OnInit } from "@flamework/core";
 import { Character, Player } from "shared/utilities/client";
 import CameraMode from "./camera-controller/mode";
+import Log from "shared/logger";
 
 import type { MouseController } from "./mouse-controller";
 import type { CameraController } from "./camera-controller";
@@ -31,6 +32,7 @@ export class CharacterController implements OnInit {
     if (on) {
       hotbar.selectSlot(1);
       this.ui.setScreen("Main");
+      Log.debug("Character deployed");
     } else {
       hotbar.deselectAll();
       buildingHotbar.deselectAll();

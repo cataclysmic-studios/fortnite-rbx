@@ -3,7 +3,7 @@ import { Context as InputContext } from "@rbxts/gamejoy";
 import Object from "@rbxts/object-utils";
 
 import { tween } from "shared/utilities/ui";
-import type SelectableSlot from "shared/structs/selectable-slot";
+import type SelectableSlot from "shared/structs/instances/selectable-slot";
 
 import type { UIController } from "client/controllers/ui-controller";
 import type { MouseController } from "client/controllers/mouse-controller";

@@ -1,11 +1,14 @@
 import { Networking } from "@flamework/networking";
-import { DataKey, DataValue, GameDataModel } from "./data-models/generic";
+import type { DataKey, DataValue, GameDataModel } from "./data-models/generic";
+import type Party from "./structs/party";
 
 interface ServerEvents {
   initializeData(): void;
   dataLoaded(): void;
   setData(key: DataKey, value: DataValue): void;
   incrementData(key: ExtractKeys<GameDataModel, number>, amount?: number): void;
+  joinParty(host: Player): void;
+  leaveParty(): void;
 }
 
 interface ClientEvents {
@@ -14,6 +17,7 @@ interface ClientEvents {
 
 interface ServerFunctions {
   getData(key: DataKey): DataValue;
+  getParty(): Party;
 }
 
 interface ClientFunctions {}

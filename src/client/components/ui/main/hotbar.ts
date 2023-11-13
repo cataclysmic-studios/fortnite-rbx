@@ -7,7 +7,7 @@ import Object from "@rbxts/object-utils";
 import { toSnakeCase } from "shared/utilities/shared";
 import { getItemByName } from "shared/utilities/game";
 import { Player } from "shared/utilities/client";
-import type SelectableSlot from "shared/structs/selectable-slot";
+import type SelectableSlot from "shared/structs/instances/selectable-slot";
 import type InventoryItem from "shared/structs/items/inventory-item";
 import DefaultPickaxe from "shared/structs/items/harvesting-tools/default-pickaxe";
 import ItemCrosshair from "shared/structs/item-mouse-icon";
