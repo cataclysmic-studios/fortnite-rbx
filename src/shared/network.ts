@@ -18,6 +18,7 @@ interface ClientEvents {
   dataUpdate(key: DataKey, value: DataValue): void;
   partyUpdate(party: Party): void;
   gameStatusUpdate(newStatus: GameStatus): void;
+  eliminationAdded(currentEliminations: number): void;
 }
 
 interface ServerFunctions {

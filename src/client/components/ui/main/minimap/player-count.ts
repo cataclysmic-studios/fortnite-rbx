@@ -11,7 +11,7 @@ import { Player } from "shared/utilities/client";
 export class PlayerCount extends BaseComponent<{}, PlayerGui["Main"]["Minimap"]["GameInfo"]["PlayerCount"]> implements OnStart {
   public onStart(): void {
     const update = () => this.instance.Value.Text = tostring(Players.GetPlayers().size());
-    Players.PlayerAdded.Connect(update);
-    Players.PlayerRemoving.Connect(update);
+    this.maid.GiveTask(Players.PlayerAdded.Connect(update));
+    this.maid.GiveTask(Players.PlayerRemoving.Connect(update));
   }
 }

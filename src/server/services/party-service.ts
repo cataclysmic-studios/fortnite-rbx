@@ -31,9 +31,8 @@ export class PartyService implements OnInit, OnPlayerJoin {
   }
 
   private modify(party: Party, executeChange: () => void): void {
-    const partyIndex = this.parties.indexOf(party);
     executeChange();
-    this.parties[partyIndex] = party;
+    this.parties[this.parties.indexOf(party)] = party;
     partyUpdate.fire(party.members, party);
   }
 

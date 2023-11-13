@@ -5,10 +5,12 @@ import Signal from "@rbxts/signal";
 
 import { Events } from "server/network";
 import type { OnPlayerJoin } from "server/hooks";
-import type { Storm } from "server/components/storm";
-
 import GameStatus from "shared/structs/game-status";
 import Log from "shared/logger";
+
+import type { Storm } from "server/components/storm";
+import type { GameStatsService } from "./game-stats-service";
+
 
 const { gameStatusUpdate, setGameStatus } = Events;
 
@@ -20,7 +22,8 @@ export class GameService implements OnInit, OnPlayerJoin {
   public currentStatus = GameStatus.Waiting;
 
   public constructor(
-    private readonly components: Components
+    private readonly components: Components,
+    public readonly stats: GameStatsService
   ) {}
 
   public onInit(): void {
