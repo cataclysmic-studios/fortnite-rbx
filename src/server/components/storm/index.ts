@@ -10,7 +10,6 @@ import GameStatus from "shared/structs/game-status";
 import Log from "shared/logger";
 
 import type { GameService } from "server/services/game-service";
-import StormPhase from "shared/structs/storm-phase";
 
 const { getCurrentStormPhase } = Functions;
 
@@ -33,14 +32,6 @@ export class Storm extends BaseComponent<{}, Workspace["GameObjects"]["Storm"]> 
       conn.Disconnect();
       task.spawn(() => this.startCycle());
     });
-  }
-
-  public isInSafeZone(part: BasePart): boolean {
-    const offset = part.Position.sub(this.instance.Position);
-    const halfHeight = this.instance.Mesh.Scale.Y / 2;
-    const radius = this.instance.Mesh.Scale.X;
-    const distanceSquared = offset.X * offset.X + offset.Z * offset.Z;
-    return offset.Y > -halfHeight && offset.Y < halfHeight && distanceSquared < radius * radius;
   }
 
   private startCycle(): void {
