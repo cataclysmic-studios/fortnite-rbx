@@ -1,12 +1,15 @@
 import type { OnStart } from "@flamework/core";
 import { Component, BaseComponent, type Components } from "@flamework/components";
 
+import { Player } from "shared/utilities/client";
+
 import type { UIController } from "client/controllers/ui-controller";
 
-interface Attributes {}
-
-@Component({ tag: "LobbyUI_TopbarButton" })
-export class LobbyTopbarButton extends BaseComponent<Attributes, TextButton> implements OnStart {
+@Component({
+  tag: "LobbyUI_TopbarButton",
+  ancestorWhitelist: [ Player.WaitForChild("PlayerGui") ]
+})
+export class LobbyTopbarButton extends BaseComponent<{}, TextButton> implements OnStart {
   private readonly defaultTrans = this.instance.Transparency;
   private readonly defaultColor = this.instance.BackgroundColor3;
   private readonly pages: Folder;

@@ -5,7 +5,7 @@ import type { OnPlayerJoin } from "server/hooks";
 import GameMode from "../../shared/structs/game-mode";
 import type Party from "../../shared/structs/party";
 
-const { joinParty, leaveParty } = Events;
+const { joinParty, leaveParty, partyUpdate } = Events;
 const { getParty } = Functions;
 
 @Service()
@@ -34,6 +34,7 @@ export class PartyService implements OnInit, OnPlayerJoin {
     const partyIndex = this.parties.indexOf(party);
     executeChange();
     this.parties[partyIndex] = party;
+    partyUpdate.fire(party.members, party);
   }
 
   private create(mode: GameMode, host: Player): Party {

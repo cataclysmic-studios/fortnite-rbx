@@ -13,6 +13,7 @@ interface ServerEvents {
 
 interface ClientEvents {
   dataUpdate(key: DataKey, value: DataValue): void;
+  partyUpdate(party: Party): void;
 }
 
 interface ServerFunctions {

@@ -1,8 +1,13 @@
 import type { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
+
+import { Player } from "shared/utilities/client";
 import { tween } from "shared/utilities/ui";
 
-@Component({ tag: "ShinyButton" })
+@Component({
+  tag: "ShinyButton",
+  ancestorWhitelist: [ Player.WaitForChild("PlayerGui") ]
+})
 export class ShinyButton extends BaseComponent<{}, GuiButton> implements OnStart {
   public onStart(): void {
     const bounds = 1;
