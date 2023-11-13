@@ -45,6 +45,7 @@ export class BuildingHotbar extends BaseHotbar<PlayerGui["Main"]["BuildingHotbar
 
     this.deselectAll();
     this.toggleFocus(false);
+    this.instance.Trap.SelectionStroke.Enabled = true;
     this.buildModeActive = false;
   }
 
@@ -54,8 +55,10 @@ export class BuildingHotbar extends BaseHotbar<PlayerGui["Main"]["BuildingHotbar
     if (build === Build.Trap && selectedSlotFrame.GetAttribute("Empty")) return;
 
     this.toggleCrosshair(true);
-    for (const [i, slotFrame] of Object.entries(this.slotFrames))
+    for (const [i, slotFrame] of Object.entries(this.slotFrames)) {
       this.toggleSlotFrameSelected(i, slotFrame, slotFrame.Name === buildName);
+      this.instance.Trap.SelectionStroke.Enabled = true;
+    }
 
     const mainHotbar = this.ui.main.getHotbar();
     mainHotbar.deselectAll();
