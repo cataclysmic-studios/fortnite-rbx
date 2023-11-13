@@ -60,7 +60,7 @@ export class GameTimer extends BaseComponent<Attributes, PlayerGui["Main"]["Mini
       case GameStatus.Storm:
       case GameStatus.StormTransition: {
         const stormPhase = await getCurrentStormPhase();
-        const timerLength = toSeconds(status === GameStatus.Storm ? stormPhase.shrinkTime : stormPhase.timeUntilShrinking);
+        const timerLength = toSeconds(status === GameStatus.Storm ? stormPhase.shrinkTime : stormPhase.transitionTime);
         const timer = new Timer(timerLength);
         this.connectTimerUpdates(timer);
         break;

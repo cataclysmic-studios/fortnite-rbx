@@ -39,11 +39,11 @@ export class Storm extends BaseComponent<{}, Workspace["GameObjects"]["Storm"]> 
       this.currentPhase = phase;
       this.gameService.setStatus(GameStatus.StormTransition);
       Log.debug(`(Storm) Began phase ${i}`);
-      Log.debug(`(Storm) Time until shrink: ${phase.timeUntilShrinking}`);
+      Log.debug(`(Storm) Time until shrink: ${phase.transitionTime}`);
       Log.debug(`(Storm) Time until fully shrunk: ${phase.shrinkTime}`);
 
       this.instance.Mesh.Scale = new Vector3(phase.radius, STORM_HEIGHT, phase.radius);
-      task.wait(toSeconds(phase.timeUntilShrinking));
+      task.wait(toSeconds(phase.transitionTime));
 
       Log.debug("(Storm) Began shrinking");
       this.gameService.setStatus(GameStatus.Storm);

@@ -3,24 +3,34 @@ import type StormPhase from "shared/structs/storm-phase";
 const STORM_PHASES: StormPhase[] = [
   {
     radius: 4096,
-    timeUntilShrinking: "2m",
-    shrinkTime: "2m 45s"
+    transitionTime: "2m",
+    shrinkTime: "2m 45s",
+    damage: 1
   }, {
     radius: 1700,
-    timeUntilShrinking: "1m 30s",
-    shrinkTime: "2m"
+    transitionTime: "1m 30s",
+    shrinkTime: "2m",
+    damage: 1
   }, {
     radius: 900,
-    timeUntilShrinking: "1m 30s",
-    shrinkTime: "1m 30s"
+    transitionTime: "1m 30s",
+    shrinkTime: "1m 30s",
+    damage: 2
   }, {
     radius: 400,
-    timeUntilShrinking: "1m 30s",
-    shrinkTime: "1m"
+    transitionTime: "1m 30s",
+    shrinkTime: "1m",
+    damage: 2
   }, {
     radius: 150,
-    timeUntilShrinking: "1m",
-    shrinkTime: "45s"
+    transitionTime: "1m",
+    shrinkTime: "45s",
+    damage: 5
+  }, {
+    radius: 100,
+    transitionTime: "45s",
+    shrinkTime: "45s",
+    damage: 10
   }
 ];
 
