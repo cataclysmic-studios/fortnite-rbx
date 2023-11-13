@@ -13,5 +13,6 @@ const { eliminationAdded } = Events;
 export class EliminationCount extends BaseComponent<{}, PlayerGui["Main"]["Minimap"]["GameInfo"]["PlayerCount"]> implements OnStart {
   public onStart(): void {
     this.maid.GiveTask(eliminationAdded.connect(currentElims => this.instance.Value.Text = tostring(currentElims)));
+    this.instance.Value.Text = "0";
   }
 }

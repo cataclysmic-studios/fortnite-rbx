@@ -13,5 +13,6 @@ export class PlayerCount extends BaseComponent<{}, PlayerGui["Main"]["Minimap"][
     const update = () => this.instance.Value.Text = tostring(Players.GetPlayers().size());
     this.maid.GiveTask(Players.PlayerAdded.Connect(update));
     this.maid.GiveTask(Players.PlayerRemoving.Connect(update));
+    update();
   }
 }
