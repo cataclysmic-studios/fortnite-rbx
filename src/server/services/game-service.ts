@@ -11,7 +11,6 @@ import Log from "shared/logger";
 import type { Storm } from "server/components/storm";
 import type { GameStatsService } from "./game-stats-service";
 
-
 const { gameStatusUpdate, setGameStatus } = Events;
 
 const REQUIRED_PLAYERS_TO_START = 1;

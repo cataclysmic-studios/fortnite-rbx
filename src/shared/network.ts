@@ -3,6 +3,7 @@ import type { DataKey, DataValue, GameDataModel } from "./data-models/generic";
 import type Party from "./structs/party";
 import type GameStatus from "./structs/game-status";
 import type StormPhase from "./structs/storm-phase";
+import type CameraMode from "shared/structs/camera-mode";
 
 interface ServerEvents {
   initializeData(): void;
@@ -19,6 +20,8 @@ interface ClientEvents {
   partyUpdate(party: Party): void;
   gameStatusUpdate(newStatus: GameStatus): void;
   eliminationAdded(currentEliminations: number): void;
+  setCameraMode(mode: CameraMode): void;
+  setMouseBehavior(behaviour: Enum.MouseBehavior): void;
 }
 
 interface ServerFunctions {

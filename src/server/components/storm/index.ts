@@ -1,4 +1,4 @@
-import { OnStart } from "@flamework/core";
+import type { OnStart } from "@flamework/core";
 import { Component, BaseComponent } from "@flamework/components";
 import Object from "@rbxts/object-utils";
 

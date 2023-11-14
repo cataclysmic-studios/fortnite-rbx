@@ -1,6 +1,7 @@
 enum GameStatus {
   Waiting,
   Bus,
+  Jumping,
   StormTransition,
   Storm
 }

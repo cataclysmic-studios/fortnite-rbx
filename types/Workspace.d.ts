@@ -3,6 +3,12 @@ interface Workspace extends WorldModel {
     Camera: Part;
   };
   GameObjects: Folder & {
-    Storm: Part & { Mesh: SpecialMesh };
+    Storm: Part & {
+      Mesh: SpecialMesh
+    };
+    BusPath: Model & {
+      End: Part;
+      Start: Part;
+    };
   }
 }

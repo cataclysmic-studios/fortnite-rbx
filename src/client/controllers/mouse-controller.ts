@@ -5,13 +5,15 @@ import { Context as InputContext } from "@rbxts/gamejoy";
 import { Axis, Union } from "@rbxts/gamejoy/out/Actions";
 import { StrictMap } from "@rbxts/strict-map";
 
+import { Events } from "client/network";
 import { Player } from "shared/utilities/client";
 
+const { setMouseBehavior } = Events;
 const { abs } = math;
 
 export const enum MouseIcon {
   Default,
-  Drag,
+  Drag
 }
 
 @Controller()
@@ -31,6 +33,8 @@ export class MouseController implements OnInit, OnRender {
   });
 
   public onInit(): void {
+    setMouseBehavior.connect(behavior => this.setBehavior(behavior));
+
     this.input
       .Bind(this.clickAction, () => {
         this.down = true;

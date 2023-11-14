@@ -7,16 +7,18 @@ import { Player } from "shared/utilities/client";
 import { toSeconds, toTimerFormat } from "shared/utilities/shared";
 import GameStatus from "shared/structs/game-status";
 import Log from "shared/logger";
+import STATUS_TIMER_PRESETS from "shared/structs/status-timer-presets";
 
 const { gameStatusUpdate, setGameStatus } = Events;
 const { getCurrentStormPhase } = Functions;
-
-const BUS_COUNTDOWN_LENGTH = 10;
 
 interface Attributes {
   readonly BusColor: Color3;
   readonly BusIcon: string;
   readonly BusIconScale: number;
+  readonly JumpingColor: Color3;
+  readonly JumpingIcon: string;
+  readonly JumpingIconScale: number;
   readonly StormColor: Color3;
   readonly StormIcon: string;
   readonly StormIconPosition: UDim2;
@@ -52,7 +54,13 @@ export class GameTimer extends BaseComponent<Attributes, PlayerGui["Main"]["Mini
     if (status === GameStatus.Waiting) return;
     switch(status) {
       case GameStatus.Bus: {
-        const timer = new Timer(BUS_COUNTDOWN_LENGTH);
+        const timer = new Timer(STATUS_TIMER_PRESETS.bus);
+        timer.completed.Connect(async () => await setGameStatus(GameStatus.Jumping));
+        this.connectTimerUpdates(timer);
+        break;
+      }
+      case GameStatus.Jumping: {
+        const timer = new Timer(STATUS_TIMER_PRESETS.jumping);
         timer.completed.Connect(async () => await setGameStatus(GameStatus.StormTransition));
         this.connectTimerUpdates(timer);
         break;

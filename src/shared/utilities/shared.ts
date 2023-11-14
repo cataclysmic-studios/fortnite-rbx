@@ -11,7 +11,7 @@ export const now = () => round(tick());
 export const toStorableVector3 = ({ X, Y, Z }: Vector3) => ({ x: X, y: Y, z: Z });
 export const toUsableVector3 = ({ x, y, z }: StorableVector3) => new Vector3(x, y, z);
 export const toSnakeCase = (input: string) => input.gsub(" ", "")[0].gsub("%u", "_%1")[0].gsub("^_", "")[0].lower();
-export function toRegion3({ CFrame, Size }: Part, areaShrink = 0): Region3 {
+export function toRegion3({ CFrame, Size }: { CFrame: CFrame; Size: Vector3; }, areaShrink = 0): Region3 {
   const { X: sx, Y: sy, Z: sz } = Size;
   const [x, y, z, r00, r01, r02, r10, r11, r12, r20, r21, r22] = CFrame.GetComponents();
   const wsx = 0.5 * (abs(r00) * sx + abs(r01) * sy + abs(r02) * sz);
@@ -107,7 +107,7 @@ const suffixes = <const>["K", "M", "B", "T", "Q"];
 export function toSuffixedNumber(n: number): string {
   if (n < 100_000)
     return commaFormat(n);
-  
+
   const index = floor(log(n, 1e3)) - 1;
   const divisor = 10 ** ((index + 1) * 3);
   const [ baseNumber ] = "%.1f".format(floor(n / divisor)).gsub("%.?0+$", "");

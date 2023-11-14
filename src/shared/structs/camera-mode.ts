@@ -1,6 +1,7 @@
 enum CameraMode {
   Character,
-  Lobby
+  Lobby,
+  BattleBus
 }
 
 export default CameraMode;
