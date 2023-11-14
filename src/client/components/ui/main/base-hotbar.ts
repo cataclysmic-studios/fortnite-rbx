@@ -29,7 +29,6 @@ export default class BaseHotbar<I extends Frame = Frame> extends BaseComponent<A
     protected readonly mouse: MouseController,
     private readonly hotbarType: "Main" | "Building"
   ) {
-
     super();
     this.slotFrames = hotbarType === "Main" ?
       <SelectableSlot[]>this.instance.WaitForChild("Slots").GetChildren()

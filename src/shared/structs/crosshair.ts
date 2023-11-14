@@ -1,9 +1,10 @@
-enum ItemMouseIcon {
+enum Crosshair {
   HarvestingTool,
   SingleShot,
   Shotgun,
   Consumable,
+  BuildMode,
   None
 }
 
-export default ItemMouseIcon;
+export default Crosshair;

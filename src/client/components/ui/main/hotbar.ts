@@ -10,21 +10,23 @@ import { Player } from "shared/utilities/client";
 import type SelectableSlot from "shared/structs/instances/selectable-slot";
 import type InventoryItem from "shared/structs/items/inventory-item";
 import DefaultPickaxe from "shared/structs/items/harvesting-tools/default-pickaxe";
-import ItemCrosshair from "shared/structs/item-mouse-icon";
+import BaseHotbar from "./base-hotbar";
 import Log from "shared/logger";
 
-import BaseHotbar from "./base-hotbar";
-import { UIController } from "client/controllers/ui-controller";
-import { MouseController } from "client/controllers/mouse-controller";
+import type { UIController } from "client/controllers/ui-controller";
+import type { MouseController } from "client/controllers/mouse-controller";
+import type { CrosshairController } from "client/controllers/crosshair-controller";
 
 @Component({
   tag: "MainUI_Hotbar",
   ancestorWhitelist: [ Player.WaitForChild("PlayerGui") ]
 })
 export class Hotbar extends BaseHotbar<PlayerGui["Main"]["Hotbar"]> implements OnStart {
-  public constructor(ui: UIController, mouse: MouseController) {
-    super(ui, mouse, "Main");
-  }
+  public constructor(
+    ui: UIController,
+    mouse: MouseController,
+    private readonly crosshair: CrosshairController
+  ) { super(ui, mouse, "Main"); }
 
   public onStart(): void {
     for (let i = 1; i <= 6; i++)
@@ -76,24 +78,12 @@ export class Hotbar extends BaseHotbar<PlayerGui["Main"]["Hotbar"]> implements O
     if (!item)
       return Log.warning(`Failed to select slot ${slot}: Could not fetch item info`);
 
-    this.setCrosshair(item.mouseIconWhenHolding);
+    this.crosshair.set(item.mouseIconWhenHolding);
     for (const [i, slotFrame] of Object.entries(this.slotFrames))
       this.toggleSlotFrameSelected(i, slotFrame, slotFrame.Name === slotName);
 
     const buildingHotbar = this.ui.main.getBuildingHotbar();
     buildingHotbar.exitBuildMode();
-  }
-
-  private setCrosshair(icon: ItemCrosshair): void {
-    this.mouse.toggleIcon(false);
-    const crosshairs = this.ui.main.getCrosshairs();
-    for (const crosshair of crosshairs)
-      crosshair.Visible = false;
-    
-    if (icon === ItemCrosshair.None) return;
-    const crosshairName = ItemCrosshair[icon];
-    const crosshair = this.ui.main.getCrosshairs().find(crosshair => crosshair.Name === crosshairName)!;
-    crosshair.Visible = true;
   }
 
   private getFirstEmptySlot(): Maybe<number> {
