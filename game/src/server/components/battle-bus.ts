@@ -16,7 +16,7 @@ const { setCameraMode } = Events;
 const { rad, random } = math;
 
 @Component({ tag: "BattleBus" })
-export class BattleBus extends BaseComponent<{}, (typeof Assets)["BattleBus"]> implements OnStart {
+export class BattleBus extends BaseComponent<{}, typeof Assets.BattleBus> implements OnStart {
   private readonly path = World.GameObjects.BusPath;
   private readonly pathHeight = this.path.Start.Position.Y;
   private readonly height = 2500 - this.pathHeight;

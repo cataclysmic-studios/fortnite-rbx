@@ -32,7 +32,7 @@ export class CharacterController implements OnInit {
     let heartbeat: RBXScriptConnection;
     heartbeat = Runtime.Heartbeat.Connect(() => {
       if (!playerOnBus) return;
-      const bus = <(typeof Assets)["BattleBus"]>World.GameObjects.WaitForChild("BattleBus");
+      const bus = <typeof Assets.BattleBus>World.GameObjects.WaitForChild("BattleBus");
       Character.PivotTo(bus.Body.CFrame);
     });
 

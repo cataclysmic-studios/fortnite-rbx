@@ -1,4 +1,5 @@
 interface Workspace extends WorldRoot {
+  Map: Folder;
   GameObjects: Folder & {
     BusPath: Model & {
       Start: Part;

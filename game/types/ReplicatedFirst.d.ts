@@ -1,6 +1,8 @@
 interface ReplicatedFirst extends Instance {
 	Assets: Folder & {
+		SearchedChest: MeshPart;
 		UI: Folder & {
+			Star: ImageLabel;
 			ItemPickupPrompt: ProximityPrompt & {
 				PromptUI: BillboardGui & {
 					Rarity: Frame & {
@@ -25,8 +27,41 @@ interface ReplicatedFirst extends Instance {
 					};
 				};
 			};
-			Star: ImageLabel & {
-				UIAspectRatioConstraint: UIAspectRatioConstraint;
+			SearchPrompt: ProximityPrompt & {
+				PromptUI: BillboardGui & {
+					Action: Frame & {
+						UIPadding: UIPadding;
+						Title: TextLabel & {
+							UIStroke: UIStroke;
+						};
+						RadialBar: Frame & {
+							UIStroke: UIStroke;
+							UIGradient: UIGradient;
+							Keybind: TextLabel & {
+								UIAspectRatioConstraint: UIAspectRatioConstraint;
+								UIPadding: UIPadding;
+							};
+							UICorner: UICorner;
+							Half2: Frame & {
+								Frame: Frame & {
+									UICorner: UICorner;
+									UIStroke: UIStroke & {
+										UIGradient: UIGradient;
+									};
+								};
+							};
+							UIAspectRatioConstraint: UIAspectRatioConstraint;
+							Half1: Frame & {
+								Frame: Frame & {
+									UICorner: UICorner;
+									UIStroke: UIStroke & {
+										UIGradient: UIGradient;
+									};
+								};
+							};
+						};
+					};
+				};
 			};
 		};
 		VFX: Folder & {

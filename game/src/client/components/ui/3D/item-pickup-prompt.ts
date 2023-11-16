@@ -1,20 +1,19 @@
 import { OnStart } from "@flamework/core";
-import { Component, BaseComponent } from "@flamework/components";
-import { ProximityPromptService } from "@rbxts/services";
+import { Component } from "@flamework/components";
 
 import { Assets } from "common/utilities/shared";
 import { Player } from "common/utilities/client";
 import Log from "common/logger";
 
 import { getItemByName } from "shared/utilities";
+import CustomPrompt from "client/base-components/custom-prompt";
 import type InventoryItem from "shared/structs/items/inventory-item";
 
 import type { UIController } from "client/controllers/ui-controller";
 import type { Hotbar } from "../hotbar";
 
 @Component({ tag: "ItemPickupPrompt" })
-export class ItemPickupPrompt extends BaseComponent<{}, typeof Assets.UI.ItemPickupPrompt> implements OnStart {
-  private readonly prompt = this.instance.PromptUI;
+export class ItemPickupPrompt extends CustomPrompt<typeof Assets.UI.ItemPickupPrompt> implements OnStart {
   private readonly hotbar: Hotbar;
 
   public constructor(
@@ -27,16 +26,7 @@ export class ItemPickupPrompt extends BaseComponent<{}, typeof Assets.UI.ItemPic
   public onStart(): void {
     this.maid.GiveTask(this.instance.Parent!);
     this.maid.GiveTask(this.instance.Triggered.Connect(() => this.pickUp()));
-    this.maid.GiveTask(ProximityPromptService.PromptShown.Connect(prompt => {
-      if (prompt.Style !== Enum.ProximityPromptStyle.Custom) return;
-      this.prompt.Enabled = true;
-      this.update();
-    }));
-    this.maid.GiveTask(ProximityPromptService.PromptHidden.Connect(prompt => {
-      if (prompt.Style !== Enum.ProximityPromptStyle.Custom) return;
-      this.prompt.Enabled = false;
-    }));
-
+    this.maid.GiveTask(this.shown.Connect(() => this.update()));
     this.update();
   }
 
