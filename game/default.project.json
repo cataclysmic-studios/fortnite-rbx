@@ -1,0 +1,46 @@
+{
+	"name": "Fort-Game",
+	"globIgnorePaths": [
+		"**/package.json",
+		"**/tsconfig.json"
+	],
+	"tree": {
+		"$className": "DataModel",
+		"ServerScriptService": {
+			"$className": "ServerScriptService",
+			"TS": {
+				"$path": "dist/game/src/server"
+			}
+		},
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+			"rbxts_include": {
+				"$path": "include",
+				"node_modules": {
+					"$className": "Folder",
+					"@rbxts": {
+						"$path": "../node_modules/@rbxts"
+					},
+					"@flamework": {
+						"$path": "../node_modules/@flamework"
+					}
+				}
+			},
+			"TS": {
+				"$path": "dist/game/src/shared"
+			},
+			"common": {
+				"$path": "dist/common/src"
+			}
+		},
+		"StarterPlayer": {
+			"$className": "StarterPlayer",
+			"StarterPlayerScripts": {
+				"$className": "StarterPlayerScripts",
+				"TS": {
+					"$path": "dist/game/src/client"
+				}
+			}
+		}
+	}
+}
