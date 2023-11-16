@@ -9,6 +9,7 @@ interface ServerEvents {
   incrementData(key: ExtractKeys<GameDataModel, number>, amount?: number): void;
   joinParty(host: Player): void;
   leaveParty(): void;
+  teleport(): void;
 }
 
 interface ClientEvents {
